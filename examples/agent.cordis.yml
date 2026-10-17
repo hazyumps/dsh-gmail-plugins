@@ -1,24 +1,18 @@
-# Mount the Gmail plugin inside an AGENT PRESET (agent.cordis.yml).
+# Mount the Gmail tools inside an AGENT PRESET instead of the whole profile.
 #
-# The Gmail plugin publishes no services, so — unlike the git plugin's services —
-# it does NOT need a `cordis:group` with an `isolate` realm. It registers its
-# tools into the host `tools` registry (per-session layer) and consumes the host
-# `timer` service only when triggers are enabled, so a single loose row is the
-# whole story.
-#
-# Place this row anywhere in your agent preset's top-level list:
+# The plugin publishes no services, so it needs no `cordis:group` with an
+# `isolate` realm. Add this row to the preset's agent.cordis.yml when only
+# agents on that preset should see gmail_* tools. Installing the bundle
+# normally (dsh plugin add) already puts the row in the profile patch.
 
 - id: gmail
-  name: '@google-workspace/dsh-gmail'
+  name: dsh-plugin-gmail
   config:
     clientIdRef: GMAIL_CLIENT_ID
     clientSecretRef: GMAIL_CLIENT_SECRET
     refreshTokenRef: GMAIL_REFRESH_TOKEN
     defaultUserId: me
     timeoutMs: 30000
-    # Polling triggers (see lib/triggers.js for the emitted events):
+    allowedRoots: []
     enableReceivedTrigger: false
     enableSentTrigger: false
-    triggerIntervalMinutes: 5
-    receivedQuery: 'in:inbox newer_than:1d'
-    sentQuery: 'in:sent newer_than:1d'

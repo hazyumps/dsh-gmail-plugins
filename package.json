@@ -1,20 +1,28 @@
 {
-  "name": "@google-workspace/dsh-gmail",
-  "version": "0.1.0",
-  "description": "Gmail plugin for the DeepSeek Harness: 63 model-facing tools and 2 polling triggers over the Gmail and People REST APIs, with OAuth2 token management.",
+  "name": "dsh-plugin-gmail",
+  "version": "0.2.0",
+  "description": "Gmail tools and polling triggers for DeepSeek Harness 0.2 (63 model-facing tools over the Gmail and People APIs, OAuth2).",
   "type": "module",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
-    },
+    ".": "./lib/index.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "lib"
+    "lib",
+    "cordis.yml",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE"
   ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.2 <0.3.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.yml"
+    }
+  },
   "keywords": [
     "deepseek",
     "harness",
@@ -26,24 +34,7 @@
     "agent-tools"
   ],
   "license": "MIT",
-  "peerDependencies": {
-    "@deepseek-ai/cordis": "4.0.1",
-    "@deepseek-ai/schemastery": "3.18.1",
-    "@deepseek-ai/dsh-tools": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-credentials": "0.1.0-rc.6"
-  },
-  "peerDependenciesMeta": {
-    "@deepseek-ai/cordis": {
-      "optional": true
-    },
-    "@deepseek-ai/schemastery": {
-      "optional": true
-    },
-    "@deepseek-ai/dsh-tools": {
-      "optional": true
-    },
-    "@deepseek-ai/dsh-credentials": {
-      "optional": true
-    }
+  "scripts": {
+    "test": "node --test tests/*.test.js"
   }
 }
